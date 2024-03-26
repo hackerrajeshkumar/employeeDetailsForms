@@ -1,88 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Employee Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-      }
+<head>
+  <title>Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-      .container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-      h1 {
-        text-align: center;
-        color: #333;
-      }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
 
-      form {
-        display: grid;
-        gap: 10px;
-      }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007bff;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      margin: 10px;
+    }
 
-      label {
-        font-weight: bold;
-        color: #555;
-      }
-
-      input[type="text"],
-      input[type="tel"],
-      input[type="email"],
-      input[type="date"] {
-        padding: 8px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-      }
-
-      button[type="submit"] {
-        padding: 10px;
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-      }
-
-      button[type="submit"]:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Employee Form</h1>
-      <form method="post" action="http://localhost:5000/">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
-
-        <label for="mobile_number">Mobile Number:</label>
-        <input type="tel" id="mobile_number" name="mobile_number" required>
-
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="birth_date">Birth Date:</label>
-        <input type="date" id="birth_date" name="birth_date" required>
-
-        <label for="special_interests">Special Interests (optional):</label>
-        <input type="text" id="special_interests" name="special_interests">
-
-        <label for="learning_institutions">Learning Institution(s):</label>
-        <input type="text" id="learning_institutions" name="learning_institutions" required>
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </body>
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Employee Management System</h1>
+    <a href="{{ url_for('new_form') }}" class="btn">Create New Form</a>
+    <a href="{{ url_for('form_lists') }}" class="btn">View Form Lists</a>
+  </div>
+</body>
 </html>

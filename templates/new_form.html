@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: grid;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"] {
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+
+    button[type="submit"] {
+      padding: 10px;
+      background-color: #000000;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #8f8268;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Employee Form</h1>
+  <form id="employeeForm" method="post" action="http://localhost:5000/submit_form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <div class="error-message" id="nameError"></div>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="mobile_number">Mobile Number:</label>
+    <input type="tel" id="mobile_number" name="mobile_number" required>
+    <div class="error-message" id="mobileNumberError"></div>
+
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required>
+    <div class="error-message" id="emailError"></div>
+
+    <label for="birth_date">Birth Date:</label>
+    <input type="date" id="birth_date" name="birth_date" required>
+
+    <label for="special_interests">Special Interests (optional):</label>
+    <input type="text" id="special_interests" name="special_interests">
+
+    <label for="learning_institutions">Learning Institution(s):</label>
+    <input type="text" id="learning_institutions" name="learning_institutions" required>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('employeeForm');
+
+  // Validation function for name field
+  const validateName = () => {
+    const nameInput = document.getElementById('name');
+    const nameError = document.getElementById('nameError');
+    if (!/^[a-zA-Z ]+$/.test(nameInput.value)) {
+      nameError.textContent = 'Name field only allows alphabets and spaces';
+      return false;
+    } else {
+      nameError.textContent = '';
+      return true;
+    }
+  };
+
+  // Validation function for phone number field
+  const validatePhoneNumber = () => {
+    const phoneNumberInput = document.getElementById('mobile_number');
+    const phoneNumberError = document.getElementById('mobileNumberError');
+    if (!/^\d{10}$/.test(phoneNumberInput.value)) {
+      phoneNumberError.textContent = 'Please enter a valid 10-digit phone number';
+      return false;
+    } else {
+      phoneNumberError.textContent = '';
+      return true;
+    }
+  };
+
+  // Validation function for email field
+  const validateEmail = () => {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput.value)) {
+      emailError.textContent = 'Please enter a valid email address';
+      return false;
+    } else {
+      emailError.textContent = '';
+      return true;
+    }
+  };
+
+  // Event listeners for field validation
+  form.addEventListener('blur', (event) => {
+    if (event.target.id === 'name') {
+      validateName();
+    } else if (event.target.id === 'mobile_number') {
+      validatePhoneNumber();
+    } else if (event.target.id === 'email') {
+      validateEmail();
+    }
+  }, true);
+
+  // Form submission handler
+  form.addEventListener('submit', (event) => {
+    if (!validateName() || !validatePhoneNumber() || !validateEmail()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+</script>
+</body>
+</html>

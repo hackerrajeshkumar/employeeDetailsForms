@@ -3,7 +3,6 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# MySQL configuration
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -11,7 +10,6 @@ db = mysql.connector.connect(
     database="employee_db"
 )
 
-# Create the employee table if it doesn't exist
 cursor = db.cursor()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS employees (
@@ -26,8 +24,16 @@ cursor.execute("""
     )
 """)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/new_form')
+def new_form():
+    return render_template('new_form.html')
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
     if request.method == 'POST':
         name = request.form['name']
         address = request.form['address']
@@ -43,9 +49,15 @@ def index():
         cursor.execute(query, values)
         db.commit()
 
-        return redirect(url_for('index'))  # Redirect to the index page
+    return redirect(url_for('index'))
 
-    return render_template('index.html')
+
+@app.route('/form_lists')
+def form_lists():
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM employees")
+    employees = cursor.fetchall()
+    return render_template('form_lists.html', employees=employees)
 
 if __name__ == '__main__':
     app.run(debug=True)
